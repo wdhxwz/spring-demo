@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +17,14 @@ import org.springframework.stereotype.Service;
 
 import com.wangdh.spring.cache.entity.User;
 
+/**
+ * 
+ * 
+ * @author wangdh
+ * 2017年6月21日下午2:44:11
+ */
 @Service
+@CacheConfig(cacheNames={"redisson:user"})
 public class UserService {
 	private Map<String, User> userCache = new HashMap<>();
 	{
@@ -32,7 +40,7 @@ public class UserService {
 	 */
 	@PostConstruct
 	public void setup() {
-		Cache usersCache = cacheManager.getCache("redisson:users");
+		Cache usersCache = cacheManager.getCache("redisson:user");
 		for (Entry<String, User> entry : userCache.entrySet()) {
 			usersCache.put(entry.getKey(), entry.getValue());
 		}
@@ -44,7 +52,7 @@ public class UserService {
 	 * @param id
 	 * @return
 	 */
-	@Cacheable(value = "redisson:users", key = "#id")
+	@Cacheable(key = "#id")
 	public User getUser(String id) {
 		System.out.println("get User with id=" + id);
 
@@ -55,7 +63,7 @@ public class UserService {
 	 * @CacheEvict : 删除缓存，方法调用过后执行
 	 * @param id
 	 */
-	@CacheEvict(value = "redisson:users", allEntries = true)
+	@CacheEvict( allEntries = true)
 	public void removeUser(String id) {
 		System.out.println("remove User with id=" + id);
 		userCache.remove(id);
@@ -65,7 +73,7 @@ public class UserService {
 	 * @CachePut : 执行方法后将结果缓存,用于更新缓存
 	 * @param user
 	 */
-	@CachePut(key = "#user.id", value = "redisson:users")
+	@CachePut(key = "#user.id")
 	public void updateUser(User user) {
 
 	}
