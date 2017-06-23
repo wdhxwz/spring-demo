@@ -48,9 +48,14 @@
 			<artifactId>redisson</artifactId>
 			<version>${redisson.version}</version>
 		</dependency>
-		
-		
-		
+
+
+		<!-- 配置文件数据解析器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<!-- spring boot 依赖 -->
@@ -71,6 +76,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<fork>true</fork>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wangdh.spring.boot.config.bean.Author;
+import com.wangdh.spring.boot.config.bean.Company;
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -18,6 +21,12 @@ public class TestController {
 	@Autowired
 	RedissonClient redissonClient;
 
+	@Autowired
+	Author author;
+
+	@Autowired
+	Company company;
+
 	@RequestMapping("/sayhello")
 	public String sayHello() {
 		logger.info("请求开始...");
@@ -25,6 +34,8 @@ public class TestController {
 		RBucket<String> rBucket = redissonClient.getBucket("test:spring-boot:sayhello");
 		rBucket.set(UUID.randomUUID().toString());
 
-		return "hello Spring boot";
+		System.out.println( company.getCompany()+ "," + company.getYear() + "," + company.getAddress());
+
+		return "hello " + author.getName();
 	}
 }
