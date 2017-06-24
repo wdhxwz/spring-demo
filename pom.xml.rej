@@ -1,0 +1,9 @@
+diff a/pom.xml b/pom.xml	(rejected hunks)
+@@ -4,6 +4,5 @@
+ 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 	<modelVersion>4.0.0</modelVersion>
+ 	<artifactId>spring-demo</artifactId>
+-		<module>spring-cache</module>
+\ No newline at end of file
+ 	<version>1.0.0-SNAPSHOT</version>	<groupId>com.wangdh</groupId>
+ 	<modules>

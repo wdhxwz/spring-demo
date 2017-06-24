@@ -34,8 +34,8 @@ public class TestController {
 		RBucket<String> rBucket = redissonClient.getBucket("test:spring-boot:sayhello");
 		rBucket.set(UUID.randomUUID().toString());
 
-		System.out.println( company.getCompany()+ "," + company.getYear() + "," + company.getAddress());
+		System.out.println(company.getCompany()+ "," + company.getYear() + "," + company.getAddress());
 
-		return "hello " + author.getName();
+		return "hello " + author.getName();  
 	}
 }
