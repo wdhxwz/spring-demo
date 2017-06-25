@@ -21,9 +21,16 @@ public class BeanFactoryTest {
 		Resource resource = resolver.getResource("beanFactory.xml");
 		reader.loadBeanDefinitions(resource);
 		
-		Person person = factory.getBean(Person.class);
-		System.out.println(person.getName());
+		// 添加后处理器
+		factory.addBeanPostProcessor(new MyInstantiationAwareBeanPostProcessor());
 		
+//		Person person = factory.getBean(Person.class);
+//		System.out.println(person.getName());
+		
+		Car car = factory.getBean(Car.class);
+		car.introduce();
+		
+		factory.destroySingletons();
 		System.out.println("OK");
 	}
 }

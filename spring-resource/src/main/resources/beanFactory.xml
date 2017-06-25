@@ -8,5 +8,11 @@
 		p:name="wangdh"
 		p:age="25"
 		p:sex="1"/>
+	<bean id="car" class="com.wangdh.spring.beanfactory.Car"
+		p:brand="CA72"
+		p:color="red"
+		p:maxSpeed="200"
+		init-method="init"
+		destroy-method="myDestroy"/>
 </beans>
 
