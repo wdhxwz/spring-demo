@@ -14,7 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<spring.boot.version>1.5.1.RELEASE</spring.boot.version>
+		<spring.boot.version>1.3.5.RELEASE</spring.boot.version>
 		<redisson.version>3.3.0</redisson.version>
 	</properties>
 	<dependencies>
@@ -27,7 +27,17 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- tomcat -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 
 		<!-- log4j2启动器 -->
@@ -65,9 +75,9 @@
 		</dependency>
 	</dependencies>
 
-	<!-- spring boot 依赖 -->
 	<dependencyManagement>
 		<dependencies>
+			<!-- spring boot 依赖 -->
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
@@ -84,7 +94,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<executable>true</executable>
 					<fork>true</fork>
 				</configuration>
 			</plugin>

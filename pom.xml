@@ -10,5 +10,6 @@
 		<module>spring-boot</module>
 		<module>spring-cache</module>
 		<module>spring-resource</module>
+		<module>spring-eurekaServer</module>
 	</modules>
 </project>
