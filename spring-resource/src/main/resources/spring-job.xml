@@ -20,25 +20,38 @@
 
 	<bean id="simpleJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		
+		<!-- 具体作业类 -->
 		<property name="targetObject">
 			<bean class="com.wangdh.spring.quartz.SimpleJob" />
 		</property>
+		
+		<!-- 作业类要执行的方法 -->
 		<property name="targetMethod" value="doJob" />
-		<property name="concurrent" value="false" /><!-- 作业不并发调度 -->
+		
+		<!-- 作业不并发调度 -->
+		<property name="concurrent" value="false" />
 	</bean>
 
 	<!-- 配置作业调度的触发方式（触发器） -->
 	<bean id="simpleTrigger"
 		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<!-- 要执行的作业 -->
 		<property name="jobDetail" ref="myjob" />
-		<property name="startDelay" value="0" /> 	<!-- 调度工厂实例化后，经过0秒开始执行调度 -->
-		<property name="repeatInterval" value="2000" />	<!-- 每2秒调度一次 -->
+		
+		<!-- 调度工厂实例化后，经过0秒开始执行调度 -->
+		<property name="startDelay" value="0" /> 
+		
+		<!-- 每2秒调度一次 -->	
+		<property name="repeatInterval" value="2000" />	
 	</bean>
 
 	<!-- 配置作业调度的触发方式（触发器） -->
 	<bean id="cronTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<!-- 要执行的作业 -->
 		<property name="jobDetail" ref="simpleJob" />
+		
 		<!-- 每5秒运行一次 -->
 		<property name="cronExpression" value="0/5 * * * * ?" />
 	</bean>
