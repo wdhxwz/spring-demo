@@ -9,6 +9,28 @@
 	<modules>
 		<module>spring-cache</module>
 		<module>spring-resource</module>
-		<module>spring-eurekaServer</module>
+		<module>spring-aop</module>
 	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.version>4.3.8.RELEASE</spring.version>
+		<ehcache.version>2.10.4</ehcache.version>
+		<redisson.version>3.4.3</redisson.version>
+		<mybatis.spring.version>1.2.3</mybatis.spring.version>
+	</properties>
+
+	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
 </project>
