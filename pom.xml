@@ -11,6 +11,7 @@
 		<module>spring-resource</module>
 		<module>spring-aop</module>
 		<module>spring-transaction</module>
+		<module>spring-mvc</module>
 	</modules>
 
 	<properties>

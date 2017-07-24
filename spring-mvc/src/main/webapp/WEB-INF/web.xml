@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance  http://www.springmodules.org/schema/cache/springmodules-cache.xsd http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee      
+    http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd">
+	<display-name>Spring MVC</display-name>
+
+	<!-- 配置Spring MVC 开始 -->
+
+	<!-- 通过指定context参数，让Spring使用 AnnotationConfigWebApplicationContext而非XmlWebApplicationContext -->
+<!-- 	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>
+			org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+		</param-value>
+	</context-param> -->
+
+	<!-- 指定标注了@Configuration的配置类，多个可以使用逗号分隔 -->
+<!-- 	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			com.wangdh.spring.mvc.config.WebAppConfig
+		</param-value>
+	</context-param> -->
+
+	<!-- ContextLoaderListener监听器将根据上面的配置使用AnnotationConfigWebApplicationContext，根据contextConfigLocation指定的配置类启动Spring容器 -->
+<!-- 	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener> -->
+
+<!-- 	<servlet>
+		<servlet-name>simpleMvc-02</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>simpleMvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping> -->
+	<!-- 配置Spring MVC 结束 -->
+
+	<!-- 首页列表 -->
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
