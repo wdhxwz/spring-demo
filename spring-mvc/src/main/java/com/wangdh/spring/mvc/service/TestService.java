@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TestService {
-	public void say(){
+	public void say() {
 		System.out.println("hahaha...");
 	}
 }

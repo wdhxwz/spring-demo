@@ -1,7 +1,7 @@
 package com.wangdh.spring.mvc.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +13,8 @@ import com.wangdh.spring.mvc.service.TestService;
 
 @Controller
 public class GoController {
-	private final Log logger = LogFactory.getLog(GoController.class);
-	
+	private final Logger logger = LoggerFactory.getLogger(GoController.class);
+
 	@Autowired
 	private TestService testService;
 
