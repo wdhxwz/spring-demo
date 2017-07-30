@@ -24,7 +24,7 @@ import com.wangdh.spring.cache.entity.User;
  * 2017年6月21日下午2:44:11
  */
 @Service
-@CacheConfig(cacheNames={"redisson:user"})
+@CacheConfig(cacheNames={"FP:OAS:Biz:user"})
 public class UserService {
 	private Map<String, User> userCache = new HashMap<>();
 	{
@@ -40,7 +40,7 @@ public class UserService {
 	 */
 	@PostConstruct
 	public void setup() {
-		Cache usersCache = cacheManager.getCache("redisson:user");
+		Cache usersCache = cacheManager.getCache("FP:OAS:Biz:user");
 		for (Entry<String, User> entry : userCache.entrySet()) {
 			usersCache.put(entry.getKey(), entry.getValue());
 		}
