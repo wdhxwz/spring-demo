@@ -20,11 +20,10 @@ import com.wangdh.spring.cache.entity.User;
 /**
  * 
  * 
- * @author wangdh
- * 2017年6月21日下午2:44:11
+ * @author wangdh 2017年6月21日下午2:44:11
  */
 @Service
-@CacheConfig(cacheNames={"FP:OAS:Biz:user"})
+@CacheConfig(cacheNames = { "FP:OAS:Biz:user:Test" })
 public class UserService {
 	private Map<String, User> userCache = new HashMap<>();
 	{
@@ -56,14 +55,19 @@ public class UserService {
 	public User getUser(String id) {
 		System.out.println("get User with id=" + id);
 
-		return userCache.get(id);
+		User user = userCache.get(id);
+		if (user == null) {
+			user = new User(id, "user-" + id);
+		}
+
+		return user;
 	}
 
 	/**
 	 * @CacheEvict : 删除缓存，方法调用过后执行
 	 * @param id
 	 */
-	@CacheEvict( allEntries = true)
+	@CacheEvict(allEntries = true)
 	public void removeUser(String id) {
 		System.out.println("remove User with id=" + id);
 		userCache.remove(id);
