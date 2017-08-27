@@ -14,6 +14,7 @@ import com.wangdh.spring.cache.service.UserService;
 public class RedisCacheApp {
 
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RedisCacheConfig.class);
 
 		UserService userService = context.getBean(UserService.class);

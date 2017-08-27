@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class App {
 
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(RedisConfig.class);
 		JedisConnectionFactory connectionFactory = context.getBean(JedisConnectionFactory.class);
 		
@@ -16,6 +17,7 @@ public class App {
 		connectionFactory.getConnection().set(key.getBytes(), value.getBytes());
 		
 		
+		@SuppressWarnings("unchecked")
 		RedisTemplate<String, String> template = context.getBean(RedisTemplate.class);
 		template.boundValueOps("wangdh:name").set("nima");
 		

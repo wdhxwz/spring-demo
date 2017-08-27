@@ -2,6 +2,7 @@ package com.wangdh.spring.mvc.config;
 
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Properties;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +20,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import com.wangdh.spring.mvc.converter.StringToUserConverter;
 
@@ -36,11 +39,12 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		// viewResolver.setViewClass(JstlView.class); // 设置视图类型
+		viewResolver.setViewClass(JstlView.class); // 设置视图类型
+		// viewResolver.setSuffix(".jsp");
 
 		return viewResolver;
 	}
-
+	
 	/**
 	 * 配置转换器：将请求信息转换为字符串，以String类型返回数据
 	 * 
@@ -93,7 +97,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("go.jsp");
+		registry.addViewController("/login").setViewName("/go.jsp");
 	}
 
 	@Override
@@ -124,6 +128,31 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	 */
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+		SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+
+		// 设置默认的错误视图
+		simpleMappingExceptionResolver.setDefaultErrorView("/defaultException.jsp");
+
+		// 设置异常在Model中保存的参数名，默认是exception
+		simpleMappingExceptionResolver.setExceptionAttribute("ex");
+
+		// 设置默认的响应码
+		simpleMappingExceptionResolver.setDefaultStatusCode(200);
+
+		// 配置解析出的viewName和statusCode的对应关系,key和value都是String类型
+		Properties statusCodes = new Properties();
+		statusCodes.setProperty("/aaa.jsp", "404");
+		simpleMappingExceptionResolver.setStatusCodes(statusCodes);
+
+		// 设置异常类(字符串)和viewName的对应关系，异常类可以是异常的一部分，也可以是异常父类的一部分
+		Properties mappings = new Properties();
+		mappings.put("ArithmeticException", "/aaa.jsp");
+		simpleMappingExceptionResolver.setExceptionMappings(mappings);
+
+		// 排除掉不处理的异常类型,精确匹配
+		simpleMappingExceptionResolver.setExcludedExceptions(Exception.class, ArithmeticException.class);
+		exceptionResolvers.add(simpleMappingExceptionResolver);
+
 		super.configureHandlerExceptionResolvers(exceptionResolvers);
 	}
 }

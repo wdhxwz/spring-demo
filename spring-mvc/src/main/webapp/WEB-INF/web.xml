@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/j2ee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance  http://www.springmodules.org/schema/cache/springmodules-cache.xsd http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance 
+	http://www.springmodules.org/schema/cache/springmodules-cache.xsd 
+	http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee      
     http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd">
 	<display-name>Spring MVC</display-name>
 
 	<!-- 配置业务层的Spring容器 开始 -->
 	<!-- 通过指定context参数，让Spring使用 AnnotationConfigWebApplicationContext而非XmlWebApplicationContext -->
-<!-- 	<context-param>
-		<param-name>contextClass</param-name>
-		<param-value>
-			org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-		</param-value>
-	</context-param> -->
+	<!-- <context-param> <param-name>contextClass</param-name> <param-value> 
+		org.springframework.web.context.support.AnnotationConfigWebApplicationContext 
+		</param-value> </context-param> -->
 
 	<!-- 指定标注了@Configuration的配置类，多个可以使用逗号分隔 -->
-<!-- 	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			com.wangdh.spring.mvc.config.RootConfig
-		</param-value>
-	</context-param> -->
+	<!-- <context-param> <param-name>contextConfigLocation</param-name> <param-value> 
+		com.wangdh.spring.mvc.config.RootConfig </param-value> </context-param> -->
 
 	<!-- ContextLoaderListener监听器将根据上面的配置使用AnnotationConfigWebApplicationContext，根据contextConfigLocation指定的配置类启动Spring容器 -->
-<!-- 	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener> -->
-	<!-- 配置业务层的Spring容器  结束 -->
+	<!-- <listener> <listener-class> org.springframework.web.context.ContextLoaderListener 
+		</listener-class> </listener> -->
+	<!-- 配置业务层的Spring容器 结束 -->
 
 	<!-- 配置Spring MVC 开始 -->
-<!-- 	<servlet>
+	<!-- <servlet> <servlet-name>simpleMvc</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet 
+		</servlet-class> <init-param> <param-name>contextConfigLocation</param-name> 
+		<param-value>classpath:simpleMvc-servlet.xml</param-value> </init-param> 
+		<load-on-startup>1</load-on-startup> </servlet> <servlet-mapping> <servlet-name>simpleMvc</servlet-name> 
+		<url-pattern>/</url-pattern> </servlet-mapping> -->
+	<!-- 配置Spring MVC 结束 -->
+
+	<!-- 配置业务层的Spring容器 开始 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<!-- 配置业务层的Spring容器 结束 -->
+
+	<!-- spring MVC 开始 -->
+	<servlet>
 		<servlet-name>simpleMvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -44,8 +55,26 @@
 	<servlet-mapping>
 		<servlet-name>simpleMvc</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping> -->
-	<!-- 配置Spring MVC 结束 -->
+	</servlet-mapping>
+	<!-- spring MVC 结束 -->
+
+	<!-- jersey开始 -->
+	<servlet>
+		<servlet-name>SpringApplication</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer
+		</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>com.wangdh.spring.jersey.config.JerseyApplication
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SpringApplication</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+	<!-- jersey结束 -->
 
 	<!-- 首页列表 -->
 	<welcome-file-list>

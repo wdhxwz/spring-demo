@@ -21,6 +21,7 @@
 		<redisson.version>3.4.3</redisson.version>
 		<mybatis.spring.version>1.2.3</mybatis.spring.version>
 		<pagehelper.version>4.1.6</pagehelper.version>
+		<junit.version>4.9</junit.version>
 	</properties>
 
 	<dependencies>
@@ -34,6 +35,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
 		</dependency>
 	</dependencies>
 </project>

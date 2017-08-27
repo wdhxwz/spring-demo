@@ -1,7 +1,5 @@
 package com.wangdh.spring.mvc.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 /**
  * spring会自动查找继承AbstractDispatcherServletInitializer的类用来配置servlet容器 <br/>
  * AbstractAnnotationConfigDispatcherServletInitializer继承了AbstractDispatcherServletInitializer
@@ -18,25 +16,27 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * @author wdhcxx
  *
  */
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	/**
-	 * 配置root上下文
-	 */
-	@Override
-	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { RootConfig.class };
-	}
-
-	@Override
-	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebAppConfig.class };
-	}
-
-	/**
-	 * 指定被servlet处理的url
-	 */
-	@Override
-	protected String[] getServletMappings() {
-		return new String[] { "/" };
-	}
+public class WebAppInitializer 
+//extends AbstractAnnotationConfigDispatcherServletInitializer 
+{
+//	/**
+//	 * 配置root上下文
+//	 */
+//	@Override
+//	protected Class<?>[] getRootConfigClasses() {
+//		return new Class<?>[] { RootConfig.class };
+//	}
+//
+//	@Override
+//	protected Class<?>[] getServletConfigClasses() {
+//		return new Class<?>[] { WebAppConfig.class };
+//	}
+//
+//	/**
+//	 * 指定被servlet处理的url
+//	 */
+//	@Override
+//	protected String[] getServletMappings() {
+//		return new String[] { "/" };
+//	}
 }

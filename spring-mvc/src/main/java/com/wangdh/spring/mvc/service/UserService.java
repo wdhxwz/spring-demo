@@ -24,6 +24,13 @@ public class UserService {
 	}
 
 	public User get(String userId) {
-		return users.get(userId);
+		User user = users.get(userId);
+		// user.setUserName("user:" + userId);
+
+		return user;
+	}
+	
+	public void add(User user){
+		users.put(user.getId(), user);
 	}
 }
