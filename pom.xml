@@ -12,6 +12,7 @@
 		<module>spring-aop</module>
 		<module>spring-transaction</module>
 		<module>spring-mvc</module>
+		<module>spring-websocket</module>
 	</modules>
 
 	<properties>
