@@ -78,7 +78,7 @@
 						</goals>
 						<configuration>
 							<finalName>${artifactId}-${profiles.active}</finalName>
-							//打包成的包名
+							<!-- 打包成的包名  -->
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">

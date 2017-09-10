@@ -1,5 +1,6 @@
 package com.wangdh.spring.mvc.config;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wangdh.spring.mvc.converter.StringToUserConverter;
 
 /**
@@ -44,7 +48,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 		return viewResolver;
 	}
-	
+
 	/**
 	 * 配置转换器：将请求信息转换为字符串，以String类型返回数据
 	 * 
@@ -62,10 +66,24 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	 */
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-		mappingJackson2HttpMessageConverter.setPrettyPrint(true);
-
-		return mappingJackson2HttpMessageConverter;
+//		MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+//		mappingJackson2HttpMessageConverter.setPrettyPrint(true);
+//
+//		return mappingJackson2HttpMessageConverter;
+		return new MappingJackson2HttpMessageConverter () { 
+			// 重写 writeInternal 方法，在返回内容前首先进行加密
+			@Override
+			protected void writeInternal (Object object, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException 
+			{ 
+				// 使用 Jackson 的 ObjectMapper 将 Java 对象转换成 Json String 
+				ObjectMapper mapper = new ObjectMapper ();
+				String json = mapper.writeValueAsString (object);
+				// 加密 
+				String result = json + "加密了！"; 
+				// 输出 
+				outputMessage.getBody ().write (result.getBytes ()); 
+				} 
+			}; 
 	}
 
 	/**
