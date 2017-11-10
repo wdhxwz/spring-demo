@@ -11,10 +11,15 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+/**
+ * 
+ * @author PC
+ *
+ */
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 
-	private final static List<WebSocketSession> sessions = Collections
+	private final static List<WebSocketSession> SESSIONS_CACHE = Collections
 			.synchronizedList(new ArrayList<WebSocketSession>());
 
 	/**
@@ -35,7 +40,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session)
 			throws Exception {
 		logger.info("connect to the websocket chat success......");
-		sessions.add(session);
+		SESSIONS_CACHE.add(session);
 
 		session.sendMessage(new TextMessage("connect"));
 		session.sendMessage(new TextMessage("new_msg"));
@@ -51,7 +56,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 			session.close();
 		}
 		logger.info("websocket chat connection closed......");
-		sessions.remove(session);
+		SESSIONS_CACHE.remove(session);
 	}
 
 	/**
@@ -61,7 +66,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session,
 			CloseStatus closeStatus) throws Exception {
 		logger.info("websocket chat connection closed......");
-		sessions.remove(session);
+		SESSIONS_CACHE.remove(session);
 	}
 
 	@Override
