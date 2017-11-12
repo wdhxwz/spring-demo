@@ -61,6 +61,25 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.4.7.v20170914</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<!-- 配置端口号 -->
+					<httpConnector>
+						<port>8901</port>
+						<host>localhost</host>
+						<idleTimeout>60000</idleTimeout>
+					</httpConnector>
+					<!-- 配置虚拟路径 -->
+					<webApp>
+						<contextPath>/spring-websocket</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
