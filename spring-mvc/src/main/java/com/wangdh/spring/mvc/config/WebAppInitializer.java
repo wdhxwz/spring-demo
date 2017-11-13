@@ -9,7 +9,7 @@ package com.wangdh.spring.mvc.config;
  * 如果发现已有实现类，就会调用它来配置Servlet容器 <br/>
  * 在Spring中，org.springframework.web.SpringServletContainerInitializer 类实现了该接口
  * <br/>
- * 同时这个类又会查找实现了org.springframework.web。WebApplicationInitializer接口的类 <br/>
+ * 同时这个类又会查找实现了org.springframework.web.WebApplicationInitializer接口的类 <br/>
  * 并将配置任务交给这些实现类去完成 <br/>
  * spring 提供一个便利的抽象类：AbstractAnnotationConfigDispatcherServletInitializer
  * 
