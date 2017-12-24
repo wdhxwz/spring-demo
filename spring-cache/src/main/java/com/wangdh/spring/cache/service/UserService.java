@@ -23,7 +23,7 @@ import com.wangdh.spring.cache.entity.User;
  * @author wangdh 2017年6月21日下午2:44:11
  */
 @Service
-@CacheConfig(cacheNames = { "FP:OAS:Biz:user:Test" })
+@CacheConfig(cacheNames = { "FP:OAS:Biz:user:Test", "FP:OAS:Biz:user:Test2" })
 public class UserService {
 	private Map<String, User> userCache = new HashMap<>();
 	{
@@ -39,10 +39,10 @@ public class UserService {
 	 */
 	@PostConstruct
 	public void setup() {
-		Cache usersCache = cacheManager.getCache("FP:OAS:Biz:user");
-		for (Entry<String, User> entry : userCache.entrySet()) {
-			usersCache.put(entry.getKey(), entry.getValue());
-		}
+//		Cache usersCache = cacheManager.getCache("FP:OAS:Biz:user");
+//		for (Entry<String, User> entry : userCache.entrySet()) {
+//			usersCache.put(entry.getKey(), entry.getValue());
+//		}
 	}
 
 	/**
