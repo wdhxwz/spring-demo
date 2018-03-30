@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/batch
+       http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+    <import resource="job-context.xml"/>
+
+    <!-- 作业，由多个step组成，封装整个批处理操作 -->
+    <batch:job id="billJob">
+        <!-- 作业步骤，作业的一个环节 -->
+        <batch:step id="billStep">
+            <!-- Step中具体执行逻辑操作，可以重复执行，可以设置具体的同步、异步操作等 -->
+            <batch:tasklet transaction-manager="transactionManager">
+                <!-- 给定数量item的集合，可以定义对Chuck的读操作、处理操作、写操作、处理间隔等 -->
+                <batch:chunk reader="cvsItemReader" writer="cvsItemWriter" processor="creditBillProcessor" commit-interval="1"/>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <!-- itemReader：从数据源读取item 读信用卡账单文件 -->
+    <bean id="cvsItemReader" class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+        <property name="resource" value="example_02/credit-card-bill.cvs"/>
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer" ref="lineTokenizer"/>
+                <property name="fieldSetMapper">
+                    <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+                        <property name="prototypeBeanName" value="creditBill"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- item代表一条数据记录 -->
+    <bean id="creditBill" class="com.wangdh.spring.batch.example_02.CreditBill"/>
+
+    <!-- lineTokenizer -->
+    <bean id="lineTokenizer" class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+        <property name="delimiter" value=","/>
+        <property name="names">
+            <list>
+                <value>accountId</value>
+                <value>name</value>
+                <value>amount</value>
+                <value>date</value>
+                <value>address</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- ItemProcessor：在item写入数据源之前，对数据进行处理。 账单处理类 -->
+    <bean id="creditBillProcessor" scope="step" class="com.wangdh.spring.batch.example_02.CreditBillProcessor"/>
+
+    <!-- ItemWriter，将Item批量写入数据源。 写信用卡账单 -->
+    <bean id="cvsItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+        <property name="resource" value="example_02/output.cvs"/>
+        <property name="lineAggregator">
+            <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+                <property name="delimiter" value=","/>
+                <property name="fieldExtractor">
+                    <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+                        <property name="names" value="accountId,name,date,address,amount"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+</beans>

@@ -13,7 +13,8 @@
 		<module>spring-transaction</module>
 		<module>spring-mvc</module>
 		<module>spring-websocket</module>
-	</modules>
+        <module>spring-batch</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
