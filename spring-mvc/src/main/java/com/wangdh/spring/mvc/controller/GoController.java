@@ -29,7 +29,7 @@ public class GoController {
 		model.addAttribute("msg", "Go Go Go!");
 		testService.say();
 
-		return "go.jsp";
+		return "go";
 	}
 
 	@RequestMapping(value = { "/sayHello" }, method = { RequestMethod.GET })
