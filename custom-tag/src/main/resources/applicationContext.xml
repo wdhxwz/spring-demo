@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:krista="http://www.krista.com/schema/test"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.krista.com/schema/test
+        http://www.krista.com/schema/test.xsd">
+    <krista:user id="user" name="wangdh" age="26" sex="male"/>
+    <krista:user id="user2" name="cxx" age="26" sex="female"/>
+</beans>

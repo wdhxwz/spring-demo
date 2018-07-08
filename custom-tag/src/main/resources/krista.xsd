@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.krista.com/schema/test"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            targetNamespace="http://www.krista.com/schema/test"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xsd:import namespace="http://www.springframework.org/schema/beans" />
+    <!-- 定义一个标签，名字叫user -->
+    <xsd:element name="user">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <!-- beans:identifiedType 该标签需要有id属性 -->
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:attribute name="name" type="xsd:string" use="required"/>
+                    <xsd:attribute name="age" type="xsd:int" use="required"/>
+                    <!-- 将该属性定义成枚举 -->
+                    <xsd:attribute name="sex" use="required">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="male" />
+                                <xsd:enumeration value="female" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
