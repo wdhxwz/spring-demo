@@ -1,5 +1,6 @@
 package com.wangdh.spring.mvc.filter;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.MDC;
 
 import javax.servlet.*;
@@ -18,6 +19,8 @@ public class LogFilter implements Filter {
         if(logKey == null || logKey==""){
             logKey = "defaultKey";
         }
+        System.setProperty("webapp.root",filterConfig.getServletContext().getRealPath("/"));
+        PropertyConfigurator.configure(filterConfig.getServletContext().getRealPath("/")+ "\\WEB-INF\\log4j.properties");
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
