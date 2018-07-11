@@ -7,6 +7,12 @@
         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <display-name>Spring MVC</display-name>
+    <!-- 配置日志文件的跟路径，默认是在部署包根目录下的logs文件夹 -->
+    <context-param>
+        <param-name>log.root.path</param-name>
+        <param-value>D:/mine</param-value>
+    </context-param>
+
     <absolute-ordering>
         <name>log4j_webfragment</name>
         <name>default_webfragment</name>
