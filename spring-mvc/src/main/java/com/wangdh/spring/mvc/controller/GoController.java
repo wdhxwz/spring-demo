@@ -1,5 +1,6 @@
 package com.wangdh.spring.mvc.controller;
 
+import com.krista.extend.utils.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,9 @@ import com.wangdh.spring.mvc.service.TestService;
 public class GoController {
 	private final Logger logger = LoggerFactory.getLogger(GoController.class);
 
-	@Autowired
-	private TestService testService;
-
 	@RequestMapping(value = { "/" }, method = { RequestMethod.HEAD })
 	public String head() {
+		SpringUtil.getBean(TestService.class);
 		return "go.jsp";
 	}
 
@@ -27,6 +26,8 @@ public class GoController {
 	public String index(Model model) {
 		logger.info("====== processed by index ======");
 		model.addAttribute("msg", "Go Go Go!");
+
+        TestService testService = SpringUtil.getBean(TestService.class);
 		testService.say();
 
 		return "go";
