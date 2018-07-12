@@ -71,8 +71,8 @@ public class UserController {
 
 	@RequestMapping
 	@ResponseBody
-	public String test(){
-		return "测试一下";
+	public String test(Integer abc){
+		return "测试一下" + abc;
 	}
 
 	@RequestMapping
