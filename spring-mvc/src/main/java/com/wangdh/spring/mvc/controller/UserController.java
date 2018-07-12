@@ -67,4 +67,17 @@ public class UserController {
 
 		return "ccc";
 	}
+
+
+	@RequestMapping
+	@ResponseBody
+	public String test(){
+		return "测试一下";
+	}
+
+	@RequestMapping
+	@ResponseBody
+	public String test2(){
+		return "测试2下";
+	}
 }
