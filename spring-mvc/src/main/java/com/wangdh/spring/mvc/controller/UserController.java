@@ -1,6 +1,7 @@
 package com.wangdh.spring.mvc.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -79,5 +80,11 @@ public class UserController {
 	@ResponseBody
 	public String test2(){
 		return "测试2下";
+	}
+
+	@RequestMapping
+	@ResponseBody
+	public Object test3(){
+		return new Date();
 	}
 }
