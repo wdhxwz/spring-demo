@@ -2,6 +2,8 @@ package com.wangdh.spring.mvc.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.wangdh.spring.mvc.models.User;
 import com.wangdh.spring.mvc.service.UserService;
@@ -86,5 +84,23 @@ public class UserController {
 	@ResponseBody
 	public Object test3(){
 		return new Date();
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseBody
+	public Object login(HttpServletRequest request,@RequestBody User user){
+		Map<String,Object> map = new HashMap<>();
+		logger.info("userName={},password={}",user.getUserName(),user.getPassword());
+		if("wangdh".equals(user.getUserName())){
+			map.put("code",200);
+			map.put("data","123");
+			map.put("message","登录成功");
+		}else{
+			map.put("code",401);
+			map.put("data","");
+			map.put("message","用户名或密码错误");
+		}
+
+		return  map;
 	}
 }
