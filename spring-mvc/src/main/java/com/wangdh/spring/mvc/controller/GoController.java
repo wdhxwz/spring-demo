@@ -1,6 +1,6 @@
 package com.wangdh.spring.mvc.controller;
 
-import com.krista.extend.utils.SpringUtil;
+import com.krista.extend.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
