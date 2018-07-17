@@ -26,6 +26,12 @@ public class UserService {
 	public User get(String userId) {
 		User user = users.get(userId);
 		// user.setUserName("user:" + userId);
+		if(user == null){
+			user = new User();
+			user.setId(userId);
+			user.setUserName("user:" + userId);
+			add(user);
+		}
 
 		return user;
 	}
