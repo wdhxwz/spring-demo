@@ -26,7 +26,7 @@ public class GoController {
 	public String index(Model model) {
 		logger.info("====== processed by index ======");
 		model.addAttribute("msg", "Go Go Go!");
-
+		test();
         TestService testService = SpringUtil.getBean(TestService.class);
 		testService.say();
 
@@ -37,5 +37,9 @@ public class GoController {
 	@ResponseBody
 	public String sayHello() {
 		return "hello Spring Mvc";
+	}
+
+	private void test(){
+
 	}
 }
