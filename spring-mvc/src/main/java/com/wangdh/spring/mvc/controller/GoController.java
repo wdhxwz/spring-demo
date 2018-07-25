@@ -1,5 +1,6 @@
 package com.wangdh.spring.mvc.controller;
 
+import com.krista.extend.mvc.annotation.NoLog;
 import com.krista.extend.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wangdh.spring.mvc.service.TestService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class GoController {
 	private final Logger logger = LoggerFactory.getLogger(GoController.class);
@@ -23,7 +27,7 @@ public class GoController {
 	}
 
 	@RequestMapping(value = { "/", "/index" }, method = { RequestMethod.GET })
-	public String index(Model model) {
+	public String index(Model model, HttpServletResponse response, HttpServletRequest request) {
 		logger.info("====== processed by index ======");
 		model.addAttribute("msg", "Go Go Go!");
 		test();
@@ -35,6 +39,7 @@ public class GoController {
 
 	@RequestMapping(value = { "/sayHello" }, method = { RequestMethod.GET })
 	@ResponseBody
+	@NoLog
 	public String sayHello() {
 		return "hello Spring Mvc";
 	}
