@@ -1,0 +1,12 @@
+#	查询子频道当前在线主播（2天没下播）
+#	type = 1 表示开播， 0表示下播
+select a.* 
+from anchor_attendance a
+join 
+(
+select yyuid, create_time, max(create_time) as maxTime from anchor_attendance where sub_sid = ? group by yyuid
+) b
+on a.yyuid = b.yyuid and a.create_time = b.maxTime
+where a.sub_sid = ? and a.type = 1
+and a.create_time >=date_add(now(), interval -2 day) 
+and b.create_time >=date_add(now(), interval -2 day)

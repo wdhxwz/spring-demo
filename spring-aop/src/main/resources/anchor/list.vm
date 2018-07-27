@@ -1,0 +1,17 @@
+select a.*,
+group_concat(ca.top_sid) as topSids,
+group_concat(tc.sid) as sids
+from anchor a
+join channel_anchor ca on a.yyuid =  ca.anchor_uid
+join top_channel tc on tc.top_sid = ca.top_sid
+where 1=1
+[and a.nick_name like #nickName#]
+[and a.status = #status#]
+[and a.yy = #yy#]
+[and tc.sid = #sid#]
+[and a.create_time >= #startDate#]
+[and a.create_time < date_add(#endDate#, interval 1 day)]
+[and ca.sign_status = #signStatus#]
+[and ca.top_sid = #topSid#]
+group by a.yyuid
+order by a.create_time desc

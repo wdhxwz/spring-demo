@@ -1,0 +1,36 @@
+
+select 
+a.yyuid as anchorUid,
+a.nick_name,
+a.fashion_url,
+ifnull(p.monthValue,0) as monthValue,
+ifnull(p.monthCoupon,0) as monthCoupon,
+ifnull(com.commission,0) as sumCommission
+from anchor a
+left join(
+	select target_uid, round(sum(monthValue),2) as monthValue, round(sum(monthCoupon),2) as monthCoupon
+	from
+	(
+		select target_uid, round(sum(value),2) as monthValue, sum(anchor_coupon) as monthCoupon  
+		from income_all 
+		where 1=1
+		and create_time >='${monthStart}' 
+		and create_time < date_add('${monthStart}', interval 1 month) 
+		and target_uid = '${anchorUid}'
+		group by target_uid
+	)t group by target_uid
+)p on a.yyuid = p.target_uid
+left join
+(
+	select 
+	cd.yyuid,
+	round(sum(cd.commission),2) as commission
+	from commission_request cr
+	join commission_request_detail crd on cr.request_id = crd.request_id
+	join commission_detail cd on cd.id = crd.detail_id
+	where 1=1
+	and cr.confirm_code = 1
+	and cd.type = 10
+	and cd.yyuid = '${anchorUid}'
+)com on 1=1
+where a.yyuid = '${anchorUid}'

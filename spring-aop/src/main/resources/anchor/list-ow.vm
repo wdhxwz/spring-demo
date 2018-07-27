@@ -1,0 +1,18 @@
+select a.*,  
+ca.ow_channel_rebate, 
+ca.sign_month, 
+ca.status as joinStatus, 
+ca.sign_status as signStatus,
+ca.sign_time as signTime,
+ca.id as signId,
+ca.top_sid as topSid
+from anchor a
+join channel_anchor ca 
+on a.yyuid =  ca.anchor_uid
+where 1=1
+[and {a.nick_name} like ?]
+[and {a.status} = ?]
+[and {a.yy} = ?]
+[and {ca.status} = ?]
+[and {ca.top_sid} = ?]
+order by create_time desc
