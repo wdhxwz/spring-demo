@@ -8,5 +8,14 @@
 </head>
 <body>
 	${msg}
+
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/fileUpload/handleFileUpload.do">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
 </body>
 </html>
