@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wangdh.spring.mvc.service.TestService;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-public class GoController {
+@RequestMapping("/")
+public class GoController extends AbstractController{
 	private final Logger logger = LoggerFactory.getLogger(GoController.class);
 
 	@RequestMapping(value = { "/" }, method = { RequestMethod.HEAD })
@@ -54,14 +56,17 @@ public class GoController {
 
 	@RestRequestMapping
 	public String test(String userId, String name, Date date){
+		RestTemplate restTemplate = new RestTemplate();
+
+
+
 		return "userId=" + userId + ",name=" + name + ",date=" + date;
 	}
 
-	@InitBinder
+/*	@InitBinder
 	public void initBinder(WebDataBinder binder){ ;
-		binder.registerCustomEditor(Date.class,
-				new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false));
-	}
+		logger.info("InitBinder...");
+	}*/
 
 	@RequestMapping
 	public JsonView getJson(){
