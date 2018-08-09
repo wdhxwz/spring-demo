@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -62,6 +63,13 @@ public class GoController extends AbstractController{
 
 		return "userId=" + userId + ",name=" + name + ",date=" + date;
 	}
+
+	@RequestMapping
+	public String aaa(HttpServletResponse response, HttpServletRequest request) throws IOException {
+	    response.sendRedirect("http://gamevip.yy.com/");
+
+	    return "";
+    }
 
 /*	@InitBinder
 	public void initBinder(WebDataBinder binder){ ;
